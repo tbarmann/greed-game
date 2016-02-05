@@ -14,8 +14,6 @@ class Player
 	input = gets.chomp
 	@name = input.empty? ? "Player " + @player_number : input
 #	binding.pry
- 
-
   end
 
 
