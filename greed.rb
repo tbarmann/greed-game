@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-
+require 'pry'
 require_relative 'lib/game'
 
 print "How many players will play? (default 3): "
