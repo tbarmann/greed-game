@@ -56,18 +56,48 @@ class PlayerTest < Minitest::Test
     result = p.score_roll([2,4,4,5,4])
     assert_equal 450, result[:points]
     assert_equal [2], result[:non_scoring_dice]
+
+    result = p.score_roll([2,3,4,2,3])
+    assert_equal 0, result[:points]
+    assert_equal [2,3,4,2,3], result[:non_scoring_dice]
+
   end
-
-
 
   def test_player_keeps_track_of_how_many_rounds_they_have_played
     p = Player.new
     assert_equal 0, p.round
-    p.play_turn
-    assert_equal 1, p.round
-    p.play_turn
-    p.play_turn
-    assert_equal 3, p.round
+    
+    with_stdin do |user|
+      user.puts "N"           # Answer "N" to roll again
+      p.play_turn
+      assert_equal 1, p.round
+    end
 
+    with_stdin do |user|
+      user.puts "N"           # Answer "N" to roll again
+      p.play_turn
+    end
+
+    with_stdin do |user|
+      user.puts "N"           # Answer "N" to roll again
+      p.play_turn
+      assert_equal 3, p.round
+    end
+  end
+
+  def test_player_stores_if_final_round
+    p = Player.new
+    p.final_round = true
+    assert_equal true, p.final_round
+  end
+
+
+  def with_stdin
+    stdin = $stdin             # remember $stdin
+    $stdin, write = IO.pipe    # create pipe assigning its "read end" to $stdin
+    yield write                # pass pipe's "write end" to block
+  ensure
+    write.close                # close pipe
+    $stdin = stdin             # restore $stdin
   end
 end
