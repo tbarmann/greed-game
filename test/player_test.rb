@@ -63,5 +63,11 @@ class PlayerTest < Minitest::Test
   def test_player_keeps_track_of_how_many_rounds_they_have_played
     p = Player.new
     assert_equal 0, p.round
+    p.play_turn
+    assert_equal 1, p.round
+    p.play_turn
+    p.play_turn
+    assert_equal 3, p.round
+
   end
 end
