@@ -36,9 +36,13 @@ class Game
     #sort players by score
     @players.sort_by {|player| player.score}
 
-    #display final results
     puts "Final results:"
-    puts "#{@players}" 
+    puts "\n\tPLAYER\t\t|FINAL SCORE"
+    puts "\t----------------+-----------"
+    @players.each do |player|
+      puts "\t#{player.name}\t|#{player.score}"
+    end
+    puts "\n"
 end
 
 
