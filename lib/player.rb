@@ -13,5 +13,12 @@ class Player
   end
 
 
+  def play_turn
+  	if @name
+  		puts @name + ": "
+  	end
+  	puts "Rolling..."
+  end
+
 end
  

@@ -5,8 +5,9 @@ class Game
 
   def initialize(player_count=3)
     @players = []
-    player_count.times do
+    player_count.times do |i|
       @players.push (Player.new)
+      @players[i].name = "Player " + (i+1).to_s
     end
   end
 
