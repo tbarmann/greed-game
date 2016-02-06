@@ -4,10 +4,11 @@ require 'pry'
 
 class Player
   attr_reader :round, :score
-  attr_accessor :name
+  attr_accessor :name, :final_round
 
   def initialize
   	@round = @score = 0
+  	@final_round = false
   end
 
   def set_score points
@@ -25,7 +26,7 @@ class Player
   		print "#{@name}, "
   		STDOUT.flush
   	end
-  	puts "Round #{@round}:"
+  	puts "Round " + (final_round ? "FINAL:" : "#{@round}:")
   	puts "Rolling..."
   	d = DiceSet.new
     while greedy
