@@ -29,10 +29,10 @@ class Player
   	end
   	puts "Round " + (final_round ? "FINAL:" : "#{@round}:")
   	puts "Your current score is #{@score}."
-  	puts "Rolling..."
   	d = DiceSet.new
     while greedy
     	d.roll(number_of_dice)
+    	puts "\nRolling..."
 	    print "\nYou rolled #{d.values} "
 	    STDOUT.flush
 		result = score_roll(d.values)
