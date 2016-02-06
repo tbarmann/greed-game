@@ -17,7 +17,6 @@ class Player
 
 
   def play_turn
-  	first_roll = true
   	greedy = true
   	points_this_turn = 0
   	number_of_dice = 5
@@ -40,7 +39,7 @@ class Player
 	    puts "which is #{result[:points]} points"
 	    puts "leaving non-scoring dice of #{result[:non_scoring_dice]}"
 	    
-	    if result[:points] > 0 || first_roll
+	    if result[:points] > 0
 	    	puts "Your points so far this turn: #{points_this_turn}"
 	    	print "Do you want to be greedy? [Y/N] (Default N):"
 	    	STDOUT.flush
@@ -53,8 +52,6 @@ class Player
 			end
 			points_this_turn = 0
 		end
-		first_roll = false
-
 	end
 	set_score points_this_turn
 	puts "Your score is now #{@score}"
