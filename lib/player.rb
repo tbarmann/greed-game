@@ -46,8 +46,10 @@ class Player
 			number_of_dice = (result[:non_scoring_dice].size == 0) ? 5 : result[:non_scoring_dice].size
 		else
 			greedy = false
+			if @score >= 300 || points_this_turn >=300
+				puts "You shouldn't have been so greedy!"
+			end
 			points_this_turn = 0
-			puts "You shouldn't have been so greedy!"
 		end
 		first_roll = false
 
