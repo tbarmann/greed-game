@@ -36,6 +36,13 @@ class Game
   end
 
 
+  def max_score
+    top_player = @players.max_by(&:score)
+    top_player.score
+  end
+
+
+
 end
 
 

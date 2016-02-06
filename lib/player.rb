@@ -9,6 +9,7 @@ class Player
 
   def set_score points
   	@score = (@score > 0 || (points >= 300)) ? @score + points : 0
+  	@round += 1
   end
 
 
