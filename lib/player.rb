@@ -22,16 +22,18 @@ class Player
   	points_this_turn = 0
   	number_of_dice = 5
   	@round += 1
+  	puts "\n\n"
   	if @name
   		print "#{@name}, "
   		STDOUT.flush
   	end
   	puts "Round " + (final_round ? "FINAL:" : "#{@round}:")
+  	puts "Your current score is #{@score}."
   	puts "Rolling..."
   	d = DiceSet.new
     while greedy
     	d.roll(number_of_dice)
-	    print "You rolled #{d.values} "
+	    print "\nYou rolled #{d.values} "
 	    STDOUT.flush
 		result = score_roll(d.values)
 	    points_this_turn += result[:points]

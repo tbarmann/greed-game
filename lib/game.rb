@@ -12,29 +12,37 @@ class Game
   end
 
   def run
+    # preliminary rounds
     puts "Starting a new game with #{@players.size} players."
+    index = 0
+    while max_score < 3000 do
+      index = index % @players.size
+      @players[index].play_turn
+      index += 1
+    end
+
+    #final round
+    puts "\n\nENTERING FINAL ROUND\n\n"
+    for i in 0..@players.size-1
+       @players[i].final_round = true
+       @players[i].play_turn
+    end
+
+    end_game
   end
 
-  def score_roll(roll)
-    @roll = roll
-    @score = 0
-    (1..6).to_a.each do |n|
-      while (@roll.count n) >= 3 do
-        remove_triplet(n)
-        @score += (n * 100) + (n==1 ? 900 : 0) 
-      end
-    end
-    @score += ((@roll.count 1) * 100) + ((@roll.count 5) * 50) 
-    @roll.delete(1)
-    @roll.delete(5)
-    return :score => @score, :non_scoring_dice => @roll
-  end
+  def end_game
+    puts "\n\nGAME OVER\n\n"
+    #sort players by score
+    @players.sort_by {|player| player.score}
 
-  def remove_triplet(num)
-    3.times do
-      @roll.delete_at(@roll.index(num) || @roll.length)
-    end
-  end
+    #display final results
+    puts "Final results:"
+    puts "#{@players}" 
+end
+
+
+
 
 
   def max_score
