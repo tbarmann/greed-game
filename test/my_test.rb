@@ -3,4 +3,5 @@ require 'pry'
 
 g = Game.new(2)
 
-binding.pry
+#binding.pry
+g.players[0].play_turn

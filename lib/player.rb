@@ -16,14 +16,43 @@ class Player
 
 
   def play_turn
+  	first_roll = true
+  	greedy = true
+  	points_this_turn = 0
+  	number_of_dice = 5
   	@round += 1
   	if @name
-  		puts @name + ": "
+  		print "#{@name}, "
+  		STDOUT.flush
   	end
+  	puts "Round #{@round}:"
   	puts "Rolling..."
   	d = DiceSet.new
-    d.roll(5)
+    while greedy
+    	d.roll(number_of_dice)
+	    print "You rolled #{d.values} "
+	    STDOUT.flush
+		result = score_roll(d.values)
+	    points_this_turn += result[:points]
+	    puts "which is #{result[:points]} points"
+	    puts "leaving non-scoring dice of #{result[:non_scoring_dice]}"
+	    
+	    if result[:points] > 0 || first_roll
+	    	puts "Your points so far this turn: #{points_this_turn}"
+	    	print "Do you want to be greedy? [Y/N] (Default N):"
+	    	STDOUT.flush
+			greedy = (gets[0].upcase == "Y") ? true : false
+			number_of_dice = (result[:non_scoring_dice].size == 0) ? 5 : result[:non_scoring_dice].size
+		else
+			greedy = false
+			points_this_turn = 0
+			puts "You shouldn't have been so greedy!"
+		end
+		first_roll = false
 
+	end
+	set_score points_this_turn
+	puts "Your score is now #{@score}"
   end
 
   def score_roll(roll)
