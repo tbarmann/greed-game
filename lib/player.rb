@@ -3,12 +3,13 @@ require_relative 'dice_set'
 require 'pry'
 
 class Player
-  attr_reader :round, :score
+  attr_reader :round, :score, :history
   attr_accessor :name, :final_round
 
   def initialize
   	@round = @score = 0
   	@final_round = false
+    @history = Hash.new
   end
 
   def set_score points
@@ -55,7 +56,14 @@ class Player
 	end
 	set_score points_this_turn
 	puts "Your score is now #{@score}"
+  record_history
   end
+
+  def record_history
+    this_round = (@final_round) ? "FINAL" : @round.to_s
+    history[this_round] = @score
+  end
+
 
   def score_roll(roll)
     @roll = roll
